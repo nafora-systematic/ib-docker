@@ -1,5 +1,4 @@
 FROM relateiq/oracle-java8
-MAINTAINER Fred Chu <zhuzhu@cpan.org>
 
 # install xvfb and other X dependencies for IB
 RUN apt-get update -y \
@@ -7,12 +6,17 @@ RUN apt-get update -y \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-WORKDIR /tmp
-RUN mkdir /root/IBController &&  wget https://github.com/zz/ib-controller/releases/download/2.13.1-api/IBController-2.13.1-api.zip && \
-	http_proxy=proxy01.ops.micai.local:2280 wget http://download2.interactivebrokers.com/download/unixmacosx_latest.jar
-WORKDIR /opt
-RUN unzip /tmp/IBController-2.13.1-api.zip && jar xf /tmp/unixmacosx_latest.jar && \
-	chmod a+x IBController/*.sh
+# install IB from local file
+ADD ibgateway-latest-standalone-linux-x64.sh /opt/
+RUN chmod +x /opt/ibgateway-latest-standalone-linux-x64.sh && \
+ /opt/ibgateway-latest-standalone-linux-x64.sh
+
+# install IBController
+RUN wget https://github.com/ib-controller/ib-controller/releases/download/3.4.0/IBController-3.4.0.zip -O /tmp/IBController.zip && \
+ mkdir ~/IBController && \
+ unzip /tmp/IBController.zip -d ~/IBController/ && \
+ chmod +x ~/IBController/*.sh && \
+ rm /tmp/IBController.zip
 
 COPY config/IBController.ini /root/IBController/IBController.ini
 COPY config/jts.ini /opt/IBJts/jts.ini
@@ -20,10 +24,6 @@ COPY init/xvfb_init /etc/init.d/xvfb
 COPY init/vnc_init /etc/init.d/vnc
 COPY bin/xvfb-daemon-run /usr/bin/xvfb-daemon-run
 COPY bin/run-gateway /usr/bin/run-gateway
-
-# vnc (optional)
-# set your own password to launch vnc
-# ENV VNC_PASSWORD doughnuts
 
 # 5900 for VNC, 4003 for the gateway API via socat
 EXPOSE 5900 4003
