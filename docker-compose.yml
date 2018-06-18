@@ -1,7 +1,9 @@
-ibgw:
-  build: .
+ib-tws:
+  image: ib-tws:963
   environment:
     - "VNC_PASSWORD=password"
+    - "TWSUSERID=edemo"
+    - "TWSPASSWORD=demouser"
   ports:
     - "5900:5900"
     - "4003:4003"

@@ -19,8 +19,10 @@ RUN wget https://github.com/ib-controller/ib-controller/releases/download/3.4.0/
  rm /tmp/IBController.zip
 
 #change the default version to current
-RUN export TWS_MAJOR_VRSN=$(ls -1 ~/Jts/ | egrep -x '[0-9]+') && echo "TWS version: $TWS_MAJOR_VRSN" && \
- sed -ie "s/TWS_MAJOR_VRSN=$(cat /opt/IBController/IBControllerStart.sh | grep -i TWS_MAJOR_VRSN= | cut -d '=' -f2)/TWS_MAJOR_VRSN=$TWS_MAJOR_VRSN /g" /opt/IBController/IBControllerStart.sh
+RUN export TWS_MAJOR_VRSN=$(ls -1 ~/Jts/ | egrep -x '[0-9]+') && echo "TWS_MAJOR_VRSN:$TWS_MAJOR_VRSN" && \
+ sed -ie "s/TWS_MAJOR_VRSN=$(cat /opt/IBController/IBControllerStart.sh | grep -i TWS_MAJOR_VRSN= | cut -d '=' -f2)/TWS_MAJOR_VRSN=$TWS_MAJOR_VRSN /g" /opt/IBController/IBControllerStart.sh && \
+ sed -i "s/TWSUSERID=/#TWSUSERID=/g" /opt/IBController/IBControllerStart.sh && \
+ sed -i "s/TWSPASSWORD=/#TWSPASSWORD=/g" /opt/IBController/IBControllerStart.sh
 
 COPY config/IBController.ini /root/IBController/IBController.ini
 COPY config/jts.ini /opt/IBJts/jts.ini
@@ -33,5 +35,6 @@ COPY bin/run-tws /usr/bin/run-tws
 EXPOSE 5900 4003
 
 ENV DISPLAY :0
+
 
 CMD ["/usr/bin/run-tws"]
