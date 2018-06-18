@@ -8,7 +8,8 @@ RUN apt-get update -y \
 
 # install IB from local file
 ADD tws-stable-standalone-linux-x64.sh /opt/
-RUN chmod +x /opt/tws-stable-standalone-linux-x64.sh && \
+RUN wget https://download2.interactivebrokers.com/installers/tws/stable-standalone/tws-stable-standalone-linux-x64.sh -O /opt/tws-stable-standalone-linux-x64.sh && \
+ chmod +x /opt/tws-stable-standalone-linux-x64.sh && \
  echo -e "n\n" | /opt/tws-stable-standalone-linux-x64.sh
 
 # install IBController
