@@ -2,7 +2,7 @@ FROM relateiq/oracle-java8
 
 # install xvfb and other X dependencies for IB
 RUN apt-get update -y \
-    && apt-get install -y xvfb libxrender1 libxtst6 x11vnc socat unzip\
+    && apt-get install -y xvfb libxrender1 libxtst6 x11vnc socat unzip libgtk2.0-bin libXtst6 libxslt1.1\
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
