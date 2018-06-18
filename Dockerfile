@@ -15,7 +15,7 @@ RUN chmod +x /opt/ibgateway-latest-standalone-linux-x64.sh && \
 RUN wget https://github.com/ib-controller/ib-controller/releases/download/3.4.0/IBController-3.4.0.zip -O /tmp/IBController.zip && \
  mkdir /opt/IBController && \
  unzip /tmp/IBController.zip -d /opt/IBController/ && \
- chmod +x /opt/IBController/*.sh && \
+ chmod +x /opt/IBController/*.sh /opt/IBController/Scripts/*.sh && \
  rm /tmp/IBController.zip
 
 #change the default version to current
