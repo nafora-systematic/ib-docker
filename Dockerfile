@@ -7,8 +7,8 @@ RUN apt-get update -y \
     && apt-get clean
 
 # install IB from local file
-ADD ibgateway-latest-standalone-linux-x64.sh /opt/
-RUN chmod +x /opt/ibgateway-latest-standalone-linux-x64.sh && \
+RUN wget https://download2.interactivebrokers.com/installers/ibgateway/latest-standalone/ibgateway-latest-standalone-linux-x64.sh -O /opt/ibgateway-latest-standalone-linux-x64.sh && \
+ chmod +x /opt/ibgateway-latest-standalone-linux-x64.sh && \
  echo -e "n\n" | /opt/ibgateway-latest-standalone-linux-x64.sh
 
 # install IBController
