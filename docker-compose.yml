@@ -1,7 +1,9 @@
-ibgw:
-  build: .
+ib-gateway:
+  image: ib-gateway:972
   environment:
     - "VNC_PASSWORD=password"
+    - "TWSUSERID=edemo"
+    - "TWSPASSWORD=demouser"
   ports:
     - "5900:5900"
     - "4003:4003"
