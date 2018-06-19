@@ -26,7 +26,6 @@ RUN export TWS_MAJOR_VRSN=$(ls -1 ~/Jts/ | egrep -x '[0-9]+') && echo "TWS_MAJOR
  sed -i "s/TWSPASSWORD=/#TWSPASSWORD=/g" /opt/IBController/IBControllerStart.sh
 
 COPY config/IBController.ini /root/IBController/IBController.ini
-COPY config/jts.ini /opt/IBJts/jts.ini
 COPY init/xvfb_init /etc/init.d/xvfb
 COPY init/vnc_init /etc/init.d/vnc
 COPY bin/xvfb-daemon-run /usr/bin/xvfb-daemon-run
