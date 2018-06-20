@@ -7,7 +7,6 @@ RUN apt-get update -y \
     && apt-get clean
 
 # install IB from local file
-ADD tws-stable-standalone-linux-x64.sh /opt/
 RUN wget https://download2.interactivebrokers.com/installers/tws/stable-standalone/tws-stable-standalone-linux-x64.sh -O /opt/tws-stable-standalone-linux-x64.sh && \
  chmod +x /opt/tws-stable-standalone-linux-x64.sh && \
  echo -e "n\n" | /opt/tws-stable-standalone-linux-x64.sh
