@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo -e "ENABLEAPI" | nc localhost 7462
+rc=$?
+while [[ $rc != 0 ]]; do
+  sleep 1
+  echo -e "ENABLEAPI" | nc localhost 7462
+  rc=$?
+done

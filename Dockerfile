@@ -2,7 +2,7 @@ FROM relateiq/oracle-java8
 
 # install xvfb and other X dependencies for IB
 RUN apt-get update -y \
-    && apt-get install -y xvfb libxrender1 libxtst6 x11vnc socat unzip libgtk2.0-bin libXtst6 libxslt1.1\
+    && apt-get install -y xvfb libxrender1 libxtst6 x11vnc socat unzip libgtk2.0-bin libXtst6 libxslt1.1 \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
@@ -26,13 +26,11 @@ RUN export TWS_MAJOR_VRSN=$(ls -1 ~/Jts/ | egrep -x '[0-9]+') && echo "TWS_MAJOR
  sed -i "s/TWSPASSWORD=/#TWSPASSWORD=/g" /opt/IBController/IBControllerStart.sh
 
 COPY config/IBController.ini /root/IBController/IBController.ini
-COPY init/xvfb_init /etc/init.d/xvfb
-COPY init/vnc_init /etc/init.d/vnc
-COPY bin/xvfb-daemon-run /usr/bin/xvfb-daemon-run
-COPY bin/run-tws /usr/bin/run-tws
+COPY init/xvfb init/vnc /etc/init.d/
+COPY bin/xvfb-daemon-run bin/run-tws bin/enable-api /usr/bin/
 
-# 5900 for VNC, 4003 for the gateway API via socat
-EXPOSE 5900 4003
+# 5900 for VNC, 7497 for the tws API via socat, 7462 for IBController via telnet.
+EXPOSE 5900 7497 7462
 
 ENV DISPLAY :0
 
