@@ -34,4 +34,9 @@ EXPOSE 5900 4003
 
 ENV DISPLAY :0
 
+# check the local API port
+HEALTHCHECK --interval=15s --timeout=5m --start-period=1m30s --retries=4 \
+  CMD nc -d -w 2 localhost 4001
+
+
 CMD ["/usr/bin/run-gateway"]
