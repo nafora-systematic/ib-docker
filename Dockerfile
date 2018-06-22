@@ -26,11 +26,8 @@ RUN export TWS_MAJOR_VRSN=$(ls ~/Jts/ibgateway/) && echo "TWS version: $TWS_MAJO
 
 
 COPY config/IBController.ini /root/IBController/IBController.ini
-COPY config/jts.ini /opt/IBJts/jts.ini
-COPY init/xvfb_init /etc/init.d/xvfb
-COPY init/vnc_init /etc/init.d/vnc
-COPY bin/xvfb-daemon-run /usr/bin/xvfb-daemon-run
-COPY bin/run-gateway /usr/bin/run-gateway
+COPY init/xvfb init/vnc /etc/init.d/
+COPY bin/xvfb-daemon-run  bin/run-gateway  /usr/bin/
 
 # 5900 for VNC, 4003 for the gateway API via socat
 EXPOSE 5900 4003
