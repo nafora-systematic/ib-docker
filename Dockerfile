@@ -28,13 +28,13 @@ COPY config/IBController.ini /root/IBController/IBController.ini
 COPY init/xvfb init/vnc /etc/init.d/
 COPY bin/xvfb-daemon-run bin/run-tws bin/enable-api /usr/bin/
 
-# 5900 for VNC, 7497 for the tws API via socat, 7462 for IBController via telnet.
-EXPOSE 5900 7497 7462
+# 5900 for VNC, 7498 for the tws API via socat, 7462 for IBController via telnet.
+EXPOSE 5900 7498 7462
 
 ENV DISPLAY :0
 
 # check the local API port
 HEALTHCHECK --interval=15s --timeout=5m --start-period=1m30s --retries=4 \
-  CMD nc -d -w 2 localhost 7496
+  CMD nc -d -w 2 localhost 7497
 
 CMD ["/usr/bin/run-tws"]
