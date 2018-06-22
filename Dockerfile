@@ -33,5 +33,8 @@ EXPOSE 5900 7497 7462
 
 ENV DISPLAY :0
 
+# check the local API port
+HEALTHCHECK --interval=15s --timeout=5m --start-period=1m30s --retries=4 \
+  CMD nc -d -w 2 localhost 7496
 
 CMD ["/usr/bin/run-tws"]
