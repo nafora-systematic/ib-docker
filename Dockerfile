@@ -19,7 +19,7 @@ RUN wget https://github.com/ib-controller/ib-controller/releases/download/3.4.0/
  rm /tmp/IBController.zip
 
 #change the default version to current
-RUN export TWS_MAJOR_VRSN=$(ls ~/Jts/ibgateway/) && echo "TWS version: $TWS_MAJOR_VRSN" && \
+RUN export TWS_MAJOR_VRSN=$(ls ~/Jts/ibgateway/) && echo "TWS_MAJOR_VRSN:$TWS_MAJOR_VRSN" && \
  sed -ie "s/TWS_MAJOR_VRSN=$(cat /opt/IBController/IBControllerGatewayStart.sh | grep -i TWS_MAJOR_VRSN= | cut -d '=' -f2)/TWS_MAJOR_VRSN=$TWS_MAJOR_VRSN /g" /opt/IBController/IBControllerGatewayStart.sh && \
  sed -i "s/TWSUSERID=/#TWSUSERID=/g" /opt/IBController/IBControllerGatewayStart.sh && \
  sed -i "s/TWSPASSWORD=/#TWSPASSWORD=/g" /opt/IBController/IBControllerGatewayStart.sh
